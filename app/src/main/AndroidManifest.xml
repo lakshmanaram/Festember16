@@ -41,11 +41,6 @@
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MyProfile"
@@ -76,7 +71,11 @@
         <activity android:name=".MainMenu"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity

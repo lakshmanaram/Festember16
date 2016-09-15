@@ -25,7 +25,6 @@ import java.util.Random;
 public class MenuCanvas extends View
 {
 
-
     public static final String LOG_TAG = "MenuCanvas";
     private Context context;
 
@@ -136,7 +135,8 @@ public class MenuCanvas extends View
                 //circle.radius = maxRadius;
                 if( x < 0 || y < 0 || y > dpHeight || x > dpWidth)
                 {
-                    continue;
+                    circle.radius = -1;
+                    circle.text = "";
                 }
 
                 if( (x-dpWidth/2)*(x-dpWidth/2) + (y-dpHeight/2)*(y-dpHeight/2) < dpWidth*dpWidth/4)
@@ -165,7 +165,6 @@ public class MenuCanvas extends View
                 circles.add(circle);
             }
             c += dpHeight/3;
-
         }
         c = -dpHeight/3;
         Log.wtf("wtf", circles.size() + " size");
@@ -189,7 +188,8 @@ public class MenuCanvas extends View
                 //circle.radius = maxRadius;
                 if( x < 0 || y < 0 || y > dpHeight || x >= dpWidth)
                 {
-                    continue;
+                    circle.radius = -1;
+                    circle.text = "";
                 }
 
                 if( (x-dpWidth/2)*(x-dpWidth/2) + (y-dpHeight/2)*(y-dpHeight/2) < dpWidth*dpWidth/4)
@@ -287,7 +287,10 @@ public class MenuCanvas extends View
         for(int i = 0; i < circles.size() ; i++)
         {
             Circle c = circles.get(i);
-            if( Math.pow( ( x - c.cx) ,2) + Math.pow( ( y - c.cy) , 2) < c.radius*c.radius)
+            if(c.cx < 0 || c.cy < 0 || c.cy > dpHeight || c.cx >= dpWidth){
+                continue;
+            }
+            else if( Math.pow( ( x - c.cx) ,2) + Math.pow( ( y - c.cy) , 2) < c.radius*c.radius)
             {
                 switch ( c.text )
                 {
@@ -369,22 +372,24 @@ public class MenuCanvas extends View
         {
             c = circles.get(i);
 
-            if( c.cx - distanceX < 0)
-            {
-                c.cx = c.cx - distanceX + dpWidth;
-            }
-            else
-            {
-                c.cx = (c.cx - distanceX) % dpWidth;
-            }
-            if( c.cy - distanceY < 0)
-            {
-                c.cy = c.cy - distanceY + dpHeight;
-            }
-            else
-            {
-                c.cy = (c.cy - distanceY) % dpHeight;
-            }
+            c.cx = (c.cx - distanceX) % dpWidth;
+            c.cy = (c.cy - distanceY) % dpHeight;
+//            if( c.cx - distanceX < 0)
+//            {
+//                c.cx = c.cx - distanceX + dpWidth;
+//            }
+//            else
+//            {
+//                c.cx = (c.cx - distanceX) % dpWidth;
+//            }
+//            if( c.cy - distanceY < 0)
+//            {
+//                c.cy = c.cy - distanceY + dpHeight;
+//            }
+//            else
+//            {
+//                c.cy = (c.cy - distanceY) % dpHeight;
+//            }
             x = c.cx;
             y = c.cy;
             if( (x-dpWidth/2)*(x-dpWidth/2) + (y-dpHeight/2)*(y-dpHeight/2) < dpWidth*dpWidth/4)
